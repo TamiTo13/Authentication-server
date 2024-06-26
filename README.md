@@ -44,7 +44,6 @@ This project is a Java-based authentication server that supports multiple client
 
 ## Tools and Technologies
 - **Java**: Core programming language for the entire project.
-- **BCrypt**: For password encryption.
 - **JUnit/TestNG**: For testing.
 - **Log4j**: For logging.
 - **OpenCSV**: For reading and writing CSV files.
@@ -52,7 +51,7 @@ This project is a Java-based authentication server that supports multiple client
 ## Installation and Setup
 1. **Clone the repository**:
     ```sh
-    git clone https://github.com/yourusername/authentication-server.git
+    git clone https://github.com/TamiTo13/authentication-server.git
     cd authentication-server
     ```
 
@@ -69,13 +68,6 @@ This project is a Java-based authentication server that supports multiple client
     ```sh
     java -cp ".:lib/*:bin" Main
     ```
-
-## Usage
-- **API Endpoints**:
-  - `/login`: User login endpoint.
-  - `/logout`: User logout endpoint.
-  - `/profile`: Endpoint for viewing and updating user profiles.
-  - `/admin/*`: Admin-specific endpoints for user and block list management.
 
 ## Contributing
 1. Fork the repository.
