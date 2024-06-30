@@ -45,7 +45,6 @@ This project is a Java-based authentication server that supports multiple client
 ## Tools and Technologies
 - **Java**: Core programming language for the entire project.
 - **JUnit/TestNG**: For testing.
-- **Log4j**: For logging.
 - **OpenCSV**: For reading and writing CSV files.
 
 ## Installation and Setup
