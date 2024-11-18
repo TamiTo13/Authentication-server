@@ -18,7 +18,7 @@ public class ActiveSessionsTest {
 
     @BeforeEach
     public void setUp() {
-        testUser = new User("testUser", "password123", "Tami", "Rufatov", "mrazqJava@example.com");
+        testUser = new User("testUser", "password123", "Tami", "Rufatov", "ILoveJava@example.com");
         testSession = new Session(testUser);
     }
 
