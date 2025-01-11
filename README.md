@@ -1,78 +1,107 @@
-# Java Authentication Server
+# Authentication and Authorization Server Project
 
-## Overview
-This project is a Java-based authentication server that supports multiple clients logging in, managing user profiles, administrative controls, and a block list for enhanced security.
+## Project Overview
 
-## Features
-- **User Authentication**:
-  - Secure login with session management.
-  - Passwords stored using bcrypt encryption.
-  
-- **Profile Management**:
-  - Users can view and update their profile information.
-  
-- **Admin Controls**:
-  - Admin login with a separate interface.
-  - User management (create, update, delete, view).
-  - View and manage login logs.
-  
-- **Block List**:
-  - Automatic blocking after multiple failed login attempts.
-  - Admins can manually add or remove users from the block list.
-  
-- **Data Storage**:
-  - User profiles and encrypted passwords stored in CSV files.
-  - Configuration files in JSON/XML format for server settings.
+This project implements a system that manages **authentication** and **authorization** for users, structured as a server-client application. The system uses a microservices architecture to enable secure communication between its components. At the core is a **Security Server** responsible for handling user logins, permissions, and maintaining audit logs for tracking security-related events.
 
-- **Security**:
-  - Strong encryption for password storage.
-  - Password policies enforcing minimum strength requirements.
-  - Optional two-factor authentication.
-  
-- **Logging and Monitoring**:
-  - Logs for user activities, login attempts, and server errors.
-  - Real-time monitoring capabilities.
+## Key Concepts
 
-## Architecture
-- **Client-Server Model**:
-  - Multiple clients can connect and interact with the server through RESTful API endpoints.
-  
-- **Layers**:
-  - **Controller Layer**: Handles incoming requests and sends appropriate responses.
-  - **Service Layer**: Contains business logic for authentication and profile management.
-  - **Data Access Layer**: Manages interactions with CSV files for storing and retrieving data.
+- **Authentication**: Verifies user identity by checking their username and password.
+- **Authorization**: Determines if a logged-in user has permission to perform a certain action.
+- **Audit Log**: Records significant security events like failed logins and configuration changes for monitoring and troubleshooting.
 
-## Tools and Technologies
-- **Java**: Core programming language for the entire project.
-- **JUnit/TestNG**: For testing.
-- **OpenCSV**: For reading and writing CSV files.
+## Functionality
 
-## Installation and Setup
-1. **Clone the repository**:
-    ```sh
-    git clone https://github.com/TamiTo13/authentication-server.git
-    cd authentication-server
-    ```
+The system consists of a **server** that processes backend logic and a **CLI client** for user interaction. It supports concurrent connections, making it scalable for real-world applications.
 
-2. **Configure the Files**:
-    - Ensure the necessary CSV files for users, admins, and block list are present in the `data` directory.
-    - Update configuration settings in the `config.properties` file if necessary.
+### User Types
 
-3. **Build the Project**:
-    ```sh
-    javac -cp ".:lib/*" src/*.java -d bin
-    ```
+1. **Unauthenticated Users**: Users who have not logged in.
+2. **Authenticated Users**: Users who have successfully logged in.
+3. **Admin Users**: Special authenticated users with elevated privileges.
 
-4. **Run the Application**:
-    ```sh
-    java -cp ".:lib/*:bin" Main
-    ```
+### Command Types
 
-## Contributing
-1. Fork the repository.
-2. Create a new branch for your feature or bugfix.
-3. Commit your changes and push the branch.
-4. Create a Pull Request describing your changes.
+#### Unsecured Commands
+
+Commands that do not require a session ID and can be used without logging in.
+
+- **Register**:
+  ```bash
+  register --username <username> --password <password> --first-name <firstName> --last-name <lastName> --email <email>
+  ```
+  Registers a new user and logs them in upon success.
+
+- **Login**:
+  ```bash
+  login --username <username> --password <password>
+  login --session-id <sessionId>
+  ```
+  Allows login using either credentials or an existing session ID.
+
+#### Secured Commands
+
+Commands requiring a valid session ID, available only to logged-in users.
+
+- **Update User Info**:
+  ```bash
+  update-user --session-id <sessionId> --new-username <newUsername> --new-first-name <newFirstName> --new-last-name <newLastName> --new-email <email>
+  ```
+  Updates user information.
+
+- **Change Password**:
+  ```bash
+  reset-password --session-id <sessionId> --username <username> --old-password <oldPassword> --new-password <newPassword>
+  ```
+  Changes the user's password.
+
+- **Logout**:
+  ```bash
+  logout --session-id <sessionId>
+  ```
+  Ends the user's session.
+
+#### Admin Commands
+
+Exclusive to admin users for managing other users.
+
+- **Add Admin**:
+  ```bash
+  add-admin-user --session-id <sessionId> --username <username>
+  ```
+  Grants admin rights to a user.
+
+- **Remove Admin**:
+  ```bash
+  remove-admin-user --session-id <sessionId> --username <username>
+  ```
+  Revokes admin rights from a user.
+
+- **Delete User**:
+  ```bash
+  delete-user --session-id <sessionId> --username <username>
+  ```
+  Deletes a user from the system.
+
+## Audit Log Details
+
+The system maintains an **auditLog** file that records:
+
+- **Failed Logins**: Includes timestamp, event type, user, and IP address.
+- **Configuration Changes**: Logs changes in user permissions with details about the change and its outcome.
+
+## Error Handling
+
+The system provides user-friendly error messages for common issues. Technical details and stack traces are logged for administrators to review.
+
+## File Requirements
+
+To run the project, ensure the following files are present:
+1. **accounts**: Contains user data.
+2. **auditLog**: Logs security events.
+
+This setup ensures secure user authentication, authorization, and comprehensive logging for effective security management.
+
 
 ## Contact
 For questions or issues, please contact [tamerlandrufatov@gmail.com](mailto:tamerlandrufatov@gmail.com).
