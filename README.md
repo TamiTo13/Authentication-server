@@ -97,7 +97,7 @@ The system provides user-friendly error messages for common issues. Technical de
 ## File Requirements
 
 To run the project, ensure the following files are present:
-1. **accounts**: Contains user data.
+1. **accounts**: Contains user data. Make sure there is atleast one admin user which is registered.
 2. **auditLog**: Logs security events.
 
 This setup ensures secure user authentication, authorization, and comprehensive logging for effective security management.
