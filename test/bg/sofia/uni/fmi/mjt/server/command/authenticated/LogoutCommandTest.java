@@ -23,13 +23,5 @@ public class LogoutCommandTest {
         LogoutCommand command = new LogoutCommand("abc123");
         assertEquals("logout", command.getName());
     }
-
-    /* @Test
-    public void testExecute() {
-        LogoutCommand command = new LogoutCommand("abc123");
-        String result = command.execute();
-        assertFalse(ActiveSessions.sessionMap.containsKey(command.sessionId));
-        assertEquals("You've been logged out", result);
-    } */
 }
 
